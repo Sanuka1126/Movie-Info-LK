@@ -6,48 +6,48 @@
 <title>MOVIE INFO LK</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap');
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#06070d; color:white; font-family:'Inter',sans-serif; }
-header { display:flex; justify-content:space-between; align-items:center; padding:15px 20px; border-bottom:1px solid #ffffff1a; flex-wrap:wrap; gap:10px; }
-.logo { font-family:'Orbitron'; font-size:20px; color:#7ef4ff; }
-.hero { min-height:70vh; display:flex; align-items:center; padding:20px; position:relative; background: linear-gradient(to bottom, #06070d00, #06070d), linear-gradient(to right, #06070d 30%, transparent), url('gojo.jpg'); background-size:cover; background-position:center top; }
-.hero-content { max-width:600px; z-index:2; }
-.hero h1 { font-family:'Orbitron'; font-size:32px; }
-.hero h1 .c1 { color:#8cf8ff; }
-.hero h1 .c2 { color:#d68cff; }
-.hero p { margin:15px 0; color:#b8c0d0; font-size:14px; }
-.btns { display:flex; gap:10px; margin:15px 0; }
-.btn { padding:12px 20px; border-radius:10px; border:none; font-weight:600; cursor:pointer; }
-.btn-p { background:#8b5cf6; color:white; }
-.btn-s { background:transparent; border:1px solid #7ef4ff; color:white; }
-.search-box { margin-top:15px; display:flex; background:#ffffff14; border:1px solid #7ef4ff; border-radius:10px; padding:6px 10px; }
-.search-box input { background:transparent; border:none; outline:none; color:white; width:100%; }
-.search-box button { background:#8b5cf6; border:none; padding:8px 15px; border-radius:6px; color:white; }
-#movies { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:15px; padding:20px; }
-.card { background:#10111a; border-radius:12px; overflow:hidden; border:1px solid #ffffff1a; cursor:pointer; }
-.card img { width:100%; height:200px; object-fit:cover; }
-.card .info { padding:10px; }
-.card .info h3 { font-size:14px; }
-.card .info p { font-size:12px; color:#aaa; }
-.footer { text-align:center; padding:20px; border-top:1px solid #8b5cf622; margin-top:20px; }
-.footer span { color:#d68cff; text-shadow:0 0 10px #8b5cf6; }
-#modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000000e0; z-index:100; padding:20px; overflow-y:auto; }
-#modalContent { background:#10111a; max-width:600px; margin:30px auto; border-radius:15px; padding:20px; border:1px solid #8b5cf6; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#06070d;color:white;font-family:'Inter',sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;background:#0a0a14cc;backdrop-filter:blur(10px);border-bottom:1px solid #ffffff14;position:sticky;top:0;z-index:10}
+.logo{font-family:'Orbitron';font-size:20px;color:#7ef4ff;text-shadow:0 0 10px #8b5cf6}
+.hero{min-height:70vh;display:flex;align-items:center;padding:30px 20px;background:linear-gradient(180deg,rgba(6,7,13,0.2),#06070d 95%),linear-gradient(90deg,#06070d 20%,transparent),url('gojo.jpg');background-size:cover;background-position:center top}
+.hero-content{max-width:600px;z-index:2}
+.hero h1{font-family:'Orbitron';font-size:36px;line-height:1.1}
+.c1{color:#8cf8ff;text-shadow:0 0 15px #00e5ff}
+.c2{color:#d68cff;text-shadow:0 0 15px #8b5cf6}
+.hero p{color:#b8c0d0;font-size:14px;margin:15px 0}
+.btns{display:flex;gap:10px;margin:15px 0}
+.btn{padding:12px 22px;border-radius:10px;border:none;font-weight:600;cursor:pointer}
+.btn-p{background:linear-gradient(90deg,#6a5af9,#8b5cf6);color:white;box-shadow:0 0 15px #8b5cf680}
+.btn-s{background:#ffffff10;border:1px solid #7ef4ff;color:white}
+.search-box{margin-top:15px;display:flex;background:#ffffff12;border:1.5px solid #7ef4ff;border-radius:12px;padding:8px 12px}
+.search-box input{background:transparent;border:none;outline:none;color:white;width:100%;font-size:15px}
+.search-box button{background:#8b5cf6;border:none;padding:8px 18px;border-radius:8px;color:white;font-weight:600;margin-left:8px}
+#movies{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;padding:20px}
+.card{background:#12131f;border-radius:12px;overflow:hidden;border:1px solid #ffffff14;cursor:pointer}
+.card img{width:100%;height:200px;object-fit:cover}
+.card .info{padding:10px}
+.card .info h3{font-size:13px}
+.card .info p{font-size:11px;color:#aaa}
+.footer{text-align:center;padding:22px;border-top:1px solid #8b5cf622;background:#0a0a14;margin-top:20px;font-family:'Orbitron'}
+.footer span{color:#d68cff;text-shadow:0 0 15px #8b5cf6}
+#modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000000e6;z-index:100;padding:20px;overflow-y:auto}
+#modalContent{background:#151620;max-width:550px;margin:20px auto;border-radius:16px;overflow:hidden;border:1px solid #8b5cf6}
 </style>
 </head>
 <body>
 <header>
-<div class="logo">MOVIE INFO LK</div>
-<div style="display:flex; gap:10px;">
-<button onclick="filterMovies('all')" class="btn btn-s" style="padding:6px 12px;">All</button>
-<button onclick="filterMovies('Action')" class="btn btn-s" style="padding:6px 12px;">Trending</button>
+<div class="logo">MOVIE INFO LK ⊙</div>
+<div style="display:flex;gap:8px">
+<button onclick="filterMovies('all')" class="btn btn-s" style="padding:7px 14px;font-size:12px">All</button>
+<button onclick="filterMovies('Trending')" class="btn btn-s" style="padding:7px 14px;font-size:12px">Trending</button>
 </div>
 </header>
 
 <section class="hero">
 <div class="hero-content">
 <h1><span class="c1">DISCOVER EVERY MOVIE</span><br><span class="c2">DETAILS</span></h1>
-<p>Get ratings, cast, trailers, release dates - Sinhalen!</p>
+<p>Get ratings, cast, trailers, release dates & more — Sinhala review ekka!</p>
 <div class="btns">
 <button class="btn btn-p" onclick="document.getElementById('movies').scrollIntoView({behavior:'smooth'})">▶ Explore</button>
 <button class="btn btn-s" onclick="filterMovies('Trending')">Trending Now</button>
@@ -60,46 +60,47 @@ header { display:flex; justify-content:space-between; align-items:center; paddin
 </section>
 
 <div id="movies"></div>
-
 <div class="footer">Made by <span>Sanuka</span> 💜</div>
 
-<div id="modal" onclick="this.style.display='none'">
+<div id="modal" onclick="if(event.target==this) this.style.display='none'">
 <div id="modalContent"></div>
 </div>
 
 <script>
-let allMovies = [
-  {"title":"Minecraft Movie","year":2025,"imdb":"7.1","genre":"Action","poster":"https://m.media-amazon.com/images/M/MV5BYzFhMzQ1N2MtYTJjNC00MmFiLTg1MmUtMDQ1YzQ0MTg3ZmRjXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg","storySi":"Steve kiyana char ekka block world eke adventure ekak!"},
-  {"title":"Avengers Endgame","year":2019,"imdb":"8.4","genre":"Action","poster":"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg","storySi":"Thanos ta passe heroes la lokaya beragannawa."},
-  {"title":"John Wick 4","year":2023,"imdb":"7.7","genre":"Action","poster":"https://m.media-amazon.com/images/M/MV5BMDExMTg5OTQzMl5BMl5BanBnXkFtZTgwMjI4MzQwMjE@._V1_.jpg","storySi":"John Wick ge revenge story eka."},
-  {"title":"Oppenheimer","year":2023,"imdb":"8.1","genre":"Trending","poster":"https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_.jpg","storySi":"Atomic bomb e hadapu scientist ge story eka."}
+const allMovies = [
+  {title:"A Minecraft Movie",year:2025,imdb:"7.1",genre:"Action",poster:"https://image.tmdb.org/t/p/w500/yFHHfHcUgGAxziP1C3lLtQr2T4w.jpg",storySi:"Steve kiyana legendary crafter kenek block world eke adventure ekak yanawa. Jack Black, Jason Momoa innawa. Family ekka balanna patta fun!"},
+  {title:"Avengers Endgame",year:2019,imdb:"8.4",genre:"Action",poster:"https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",storySi:"Thanos finger snap eken passe heroes la lokaya beragannawa. Marvel eke best ending eka!"},
+  {title:"John Wick Chapter 4",year:2023,imdb:"7.7",genre:"Action",poster:"https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",storySi:"John Wick High Table ekata revenge ganna Paris wala fight karanawa."},
+  {title:"Oppenheimer",year:2023,imdb:"8.1",genre:"Trending",poster:"https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",storySi:"Atomic bomb e hadapu scientist ge real story eka. Oscar gaththa film eka!"},
+  {title:"Spider-Man No Way Home",year:2021,imdb:"8.2",genre:"Action",poster:"https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",storySi:"Multiverse eken anith Spider-Man la enawa! Tobey, Andrew enawa!"},
+  {title:"Barbie",year:2023,imdb:"7.0",genre:"Trending",poster:"https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi81QppElfA.jpg",storySi:"Barbie doll real world ekata enawa. Funny, colorful!"}
 ];
 
 function displayMovies(list){
-  let div = document.getElementById('movies');
-  div.innerHTML = '';
+  const div=document.getElementById('movies');
+  if(list.length==0){div.innerHTML='<div style=text-align:center;padding:40px;color:#888>😕 Movie ekak hambaune na...</div>';return}
+  div.innerHTML='';
   list.forEach(m=>{
-    div.innerHTML += `<div class="card" onclick="openMovie('${m.title}')">
-      <img src="${m.poster}" onerror="this.src='gojo.jpg'">
-      <div class="info"><h3>${m.title}</h3><p>${m.year} | ⭐ ${m.imdb}</p></div>
-    </div>`;
+    div.innerHTML+=`<div class="card" onclick="openMovie('${m.title.replace(/'/g,"\\'")}')"><img src="${m.poster}" onerror="this.src='gojo.jpg'"><div class="info"><h3>${m.title}</h3><p>${m.year} | ⭐ ${m.imdb}</p></div></div>`;
   });
 }
 function searchMovie(){
-  let q = document.getElementById('search').value.toLowerCase();
-  let filtered = allMovies.filter(m=> m.title.toLowerCase().includes(q));
-  displayMovies(filtered);
+  const q=document.getElementById('search').value.toLowerCase().trim();
+  if(!q){displayMovies(allMovies);return}
+  const f=allMovies.filter(m=> m.title.toLowerCase().includes(q) || m.genre.toLowerCase().includes(q));
+  displayMovies(f);
 }
 function filterMovies(cat){
-  if(cat=='all') displayMovies(allMovies);
-  else displayMovies(allMovies.filter(m=> m.genre==cat || m.title.includes(cat)));
+  if(cat==='all') displayMovies(allMovies);
+  else displayMovies(allMovies.filter(m=> m.genre===cat));
+  document.getElementById('movies').scrollIntoView({behavior:'smooth'});
 }
 function openMovie(title){
-  let m = allMovies.find(x=> x.title==title);
-  document.getElementById('modalContent').innerHTML = `<img src="${m.poster}" style="width:100%; border-radius:10px;"><h2 style="margin:10px 0;">${m.title} (${m.year})</h2><p>⭐ IMDB: ${m.imdb}</p><p style="margin:10px 0; line-height:1.6;">${m.storySi}</p><button onclick="document.getElementById('modal').style.display='none'" class="btn btn-p">Close</button>`;
+  const m=allMovies.find(x=> x.title===title);
+  document.getElementById('modalContent').innerHTML=`<img src="${m.poster}" style="width:100%;height:320px;object-fit:cover" onerror="this.src='gojo.jpg'"><div style="padding:18px"><h2>${m.title}</h2><p style="color:#aaa;margin:8px 0">📅 ${m.year} | ⭐ ${m.imdb} | 🎬 ${m.genre}</p><p style="line-height:1.7;margin:12px 0">${m.storySi}</p><button onclick="document.getElementById('modal').style.display='none'" class="btn btn-p" style="width:100%">Close</button></div>`;
   document.getElementById('modal').style.display='block';
 }
 displayMovies(allMovies);
 </script>
 </body>
- </html>
+  </html>
