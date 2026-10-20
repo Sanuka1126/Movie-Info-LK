@@ -3,77 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MOVIE INFO LK - Discover Every Movie</title>
+<title>MOVIE INFO LK</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap');
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:#06070d; color:white; font-family:'Inter', sans-serif; overflow-x:hidden; }
-header { display:flex; justify-content:space-between; align-items:center; padding:20px 60px; border-bottom:1px solid #ffffff1a; backdrop-filter:blur(10px); }
-.logo { font-family:'Orbitron'; font-size:28px; color:#7ef4ff; text-shadow:0 0 15px #8b5cf6; }
-nav a { color:#aaa; margin:0 12px; text-decoration:none; }
-nav a.active { color:white; border-bottom:2px solid #8b5cf6; }
-.hero { min-height:90vh; display:flex; align-items:center; padding:0 60px; position:relative; background: linear-gradient(to right, #06070d 40%, transparent 80%), url('gojo.jpg'); background-size:cover; background-position:right center; }
+body { background:#06070d; color:white; font-family:'Inter',sans-serif; }
+header { display:flex; justify-content:space-between; align-items:center; padding:15px 20px; border-bottom:1px solid #ffffff1a; flex-wrap:wrap; gap:10px; }
+.logo { font-family:'Orbitron'; font-size:20px; color:#7ef4ff; }
+.hero { min-height:70vh; display:flex; align-items:center; padding:20px; position:relative; background: linear-gradient(to bottom, #06070d00, #06070d), linear-gradient(to right, #06070d 30%, transparent), url('gojo.jpg'); background-size:cover; background-position:center top; }
 .hero-content { max-width:600px; z-index:2; }
-.hero h1 { font-family:'Orbitron'; font-size:56px; line-height:1.1; }
-.hero h1 .c1 { color:#8cf8ff; text-shadow:0 0 20px #00f2ff; }
-.hero h1 .c2 { color:#d68cff; text-shadow:0 0 20px #8b5cf6; }
-.hero p { margin:20px 0; color:#b8c0d0; line-height:1.6; }
-.btns { display:flex; gap:15px; margin:25px 0; }
-.btn { padding:14px 28px; border-radius:12px; border:none; cursor:pointer; font-weight:600; }
-.btn-p { background:linear-gradient(90deg,#6a5af9,#8b5cf6); color:white; box-shadow:0 0 20px #8b5cf6a0; }
+.hero h1 { font-family:'Orbitron'; font-size:32px; }
+.hero h1 .c1 { color:#8cf8ff; }
+.hero h1 .c2 { color:#d68cff; }
+.hero p { margin:15px 0; color:#b8c0d0; font-size:14px; }
+.btns { display:flex; gap:10px; margin:15px 0; }
+.btn { padding:12px 20px; border-radius:10px; border:none; font-weight:600; cursor:pointer; }
+.btn-p { background:#8b5cf6; color:white; }
 .btn-s { background:transparent; border:1px solid #7ef4ff; color:white; }
-.search-box { margin-top:20px; display:flex; align-items:center; background:#ffffff0d; border:1px solid #7ef4ff; border-radius:12px; padding:8px 15px; }
-.search-box input { background:transparent; border:none; outline:none; color:white; width:100%; font-size:16px; }
-.search-box button { background:#8b5cf6; border:none; padding:8px 18px; border-radius:8px; color:white; cursor:pointer; }
-.footer { text-align:center; padding:25px; border-top:1px solid #8b5cf622; background:#0a0a14; font-family:'Orbitron'; letter-spacing:1px; }
-.footer span { color:#d68cff; text-shadow:0 0 15px #8b5cf6; animation:glow 2s infinite alternate; }
-@keyframes glow { from { text-shadow:0 0 10px #8b5cf6; } to { text-shadow:0 0 25px #d68cff; } }
-.tags { margin-top:15px; display:flex; gap:10px; }
-.tag { border:1px solid #8b5cf6; padding:5px 12px; border-radius:20px; font-size:13px; color:#aaa; }
+.search-box { margin-top:15px; display:flex; background:#ffffff14; border:1px solid #7ef4ff; border-radius:10px; padding:6px 10px; }
+.search-box input { background:transparent; border:none; outline:none; color:white; width:100%; }
+.search-box button { background:#8b5cf6; border:none; padding:8px 15px; border-radius:6px; color:white; }
+#movies { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:15px; padding:20px; }
+.card { background:#10111a; border-radius:12px; overflow:hidden; border:1px solid #ffffff1a; cursor:pointer; }
+.card img { width:100%; height:200px; object-fit:cover; }
+.card .info { padding:10px; }
+.card .info h3 { font-size:14px; }
+.card .info p { font-size:12px; color:#aaa; }
+.footer { text-align:center; padding:20px; border-top:1px solid #8b5cf622; margin-top:20px; }
+.footer span { color:#d68cff; text-shadow:0 0 10px #8b5cf6; }
+#modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000000e0; z-index:100; padding:20px; overflow-y:auto; }
+#modalContent { background:#10111a; max-width:600px; margin:30px auto; border-radius:15px; padding:20px; border:1px solid #8b5cf6; }
 </style>
 </head>
 <body>
-
 <header>
-<div class="logo">MOVIE INFO LK ⊙</div>
-<nav>
-<a class="active" href="#">Home</a>
-<a href="#">Movies</a>
-<a href="#">Series</a>
-<a href="#">Trending</a>
-<a href="#">Genres</a>
-</nav>
-<div>Sign In</div>
+<div class="logo">MOVIE INFO LK</div>
+<div style="display:flex; gap:10px;">
+<button onclick="filterMovies('all')" class="btn btn-s" style="padding:6px 12px;">All</button>
+<button onclick="filterMovies('Action')" class="btn btn-s" style="padding:6px 12px;">Trending</button>
+</div>
 </header>
 
 <section class="hero">
 <div class="hero-content">
 <h1><span class="c1">DISCOVER EVERY MOVIE</span><br><span class="c2">DETAILS</span></h1>
-<p>Get ratings, cast, trailers, release dates & more — all in one place. Stream smarter with real-time info trusted by fans.</p>
+<p>Get ratings, cast, trailers, release dates - Sinhalen!</p>
 <div class="btns">
-<button class="btn btn-p">▶ Explore Movies</button>
-<button class="btn btn-s">↗ Trending Now</button>
+<button class="btn btn-p" onclick="document.getElementById('movies').scrollIntoView({behavior:'smooth'})">▶ Explore</button>
+<button class="btn btn-s" onclick="filterMovies('Trending')">Trending Now</button>
 </div>
 <div class="search-box">
-<input type="text" id="search" placeholder="Search for movies, series, actors...">
+<input type="text" id="search" placeholder="Search Minecraft, Avengers..." oninput="searchMovie()">
 <button onclick="searchMovie()">Search</button>
-</div>
-<div class="tags">
-<div class="tag">🎬 10K+ Movies</div>
-<div class="tag">⚡ Live Updates</div>
-<div class="tag">🎥 HD Trailers</div>
 </div>
 </div>
 </section>
 
+<div id="movies"></div>
+
 <div class="footer">Made by <span>Sanuka</span> 💜</div>
 
+<div id="modal" onclick="this.style.display='none'">
+<div id="modalContent"></div>
+</div>
+
 <script>
-// Simple search
-function searchMovie(){
- let q = document.getElementById('search').value;
- alert('Searching for: ' + q + ' - movies.json eken load wenawa!');
+let allMovies = [
+  {"title":"Minecraft Movie","year":2025,"imdb":"7.1","genre":"Action","poster":"https://m.media-amazon.com/images/M/MV5BYzFhMzQ1N2MtYTJjNC00MmFiLTg1MmUtMDQ1YzQ0MTg3ZmRjXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg","storySi":"Steve kiyana char ekka block world eke adventure ekak!"},
+  {"title":"Avengers Endgame","year":2019,"imdb":"8.4","genre":"Action","poster":"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg","storySi":"Thanos ta passe heroes la lokaya beragannawa."},
+  {"title":"John Wick 4","year":2023,"imdb":"7.7","genre":"Action","poster":"https://m.media-amazon.com/images/M/MV5BMDExMTg5OTQzMl5BMl5BanBnXkFtZTgwMjI4MzQwMjE@._V1_.jpg","storySi":"John Wick ge revenge story eka."},
+  {"title":"Oppenheimer","year":2023,"imdb":"8.1","genre":"Trending","poster":"https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_.jpg","storySi":"Atomic bomb e hadapu scientist ge story eka."}
+];
+
+function displayMovies(list){
+  let div = document.getElementById('movies');
+  div.innerHTML = '';
+  list.forEach(m=>{
+    div.innerHTML += `<div class="card" onclick="openMovie('${m.title}')">
+      <img src="${m.poster}" onerror="this.src='gojo.jpg'">
+      <div class="info"><h3>${m.title}</h3><p>${m.year} | ⭐ ${m.imdb}</p></div>
+    </div>`;
+  });
 }
+function searchMovie(){
+  let q = document.getElementById('search').value.toLowerCase();
+  let filtered = allMovies.filter(m=> m.title.toLowerCase().includes(q));
+  displayMovies(filtered);
+}
+function filterMovies(cat){
+  if(cat=='all') displayMovies(allMovies);
+  else displayMovies(allMovies.filter(m=> m.genre==cat || m.title.includes(cat)));
+}
+function openMovie(title){
+  let m = allMovies.find(x=> x.title==title);
+  document.getElementById('modalContent').innerHTML = `<img src="${m.poster}" style="width:100%; border-radius:10px;"><h2 style="margin:10px 0;">${m.title} (${m.year})</h2><p>⭐ IMDB: ${m.imdb}</p><p style="margin:10px 0; line-height:1.6;">${m.storySi}</p><button onclick="document.getElementById('modal').style.display='none'" class="btn btn-p">Close</button>`;
+  document.getElementById('modal').style.display='block';
+}
+displayMovies(allMovies);
 </script>
 </body>
-  </html>
+ </html>
